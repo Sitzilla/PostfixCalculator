@@ -9,6 +9,7 @@ A postfix calculator is a calculator that accepts an expression with the operato
 Expression	Postfix Expression	Value
 
 Expression | Postfix Expression | Value
+
   2 + 3    |       2 3 +        |   5
   8 – 12   |	     8 12 –	      |  -4
   4 * 9    |	     4 9 *	      |  36
