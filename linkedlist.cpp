@@ -1,172 +1,175 @@
 #include "linkedlist.h"
-#include "timer.h"
 #include <iostream>
 using namespace std;
 
-Node::Node(int val, Node *nxt)
-{
-	value = val;
-	next = nxt;
+Node::Node(char sym, int val, Node *nxt) {
+    symbol = sym;
+    value = val;
+    next = nxt;
 }
 
-LinkedList::LinkedList()
-{
-	head = NULL;
-	tail = NULL;
-	size = 0;
+LinkedList::LinkedList() {
+    head = NULL;
+    tail = NULL;
+    size = 0;
 }
 
-LinkedList::LinkedList(const LinkedList &other)
-{
-	head = NULL;
-	tail = NULL;
-	size = other.size;
-	if(other.head != NULL)
-	{
-		head = new Node(other.head->value);
-		tail = head;
-		
-		Node *n = other.head->next;
-		Node *m = head;
-		
-		while(n != NULL)
-		{
-			tail = m;
-			m->next = new Node(n->value);
-			m = m->next;
-			n = n->next;
-		}
-	}
+LinkedList::LinkedList(const LinkedList &other) {
+    head = NULL;
+    tail = NULL;
+    size = other.size;
+    if(other.head != NULL) {
+#include <iostream>
+        head = new Node(other.head->symbol, other.head->value);
+        tail = head;
+        
+        Node *n = other.head->next;
+        Node *m = head;
+        
+        while(n != NULL) {
+            tail = m;
+            m->next = new Node(n->symbol, n->value);
+            m = m->next;
+            n = n->next;
+        }
+    }
 }
 
-LinkedList::~LinkedList()
-{
-	Node *n = head;
-	while(n != NULL)
-	{
-		Node *m = n->next;
-		delete n;
-		n = m;
-	}
+LinkedList::~LinkedList() {
+    Node *n = head;
+    while(n != NULL) {
+        Node *m = n->next;
+        delete n;
+        n = m;
+    }
 }
 
-const int &LinkedList::get(int i) const
-{
-	Node *n = head;
-	for(int j = 0; j < i; j++)
-	{
-		n = n->next;
-	}
-	return n->value;
+
+const int &LinkedList::get(char symbol) const {
+    Node *n = head;
+
+    while(n != NULL && n->symbol != symbol) {
+        n = n->next;
+    }
+    // what if n is null?
+    if (n == NULL) {
+        cout << "no symbol";
+        //probably need to have this do a real error sometime
+        return n->value;
+    }
+    return n->value;
 }
 
-int &LinkedList::get(int i)
-{
-	Node *n = head;
-	for(int j = 0; j < i; j++)
-	{
-		n = n->next;
-	}
-	return n->value;
+int &LinkedList::get(char symbol) {
+    Node *n = head;
+
+    while(n != NULL && n->symbol != symbol) {
+            n = n->next;
+        }
+        // what if n is null?
+        if (n == NULL) {
+            cout << "no symbol";
+            //probably need to have this do a real error sometime
+            return n->value;
+        }
+        return n->value;
 }
 
-void LinkedList::set(int i, int x)
-{
-	Node *n = head;
-	for(int j = 0; j < i; j++)
-	{
-		n = n->next;
-	}
-	n->value = x;
+
+void LinkedList::set(char symbol, int value) {
+    Node *n = head;
+
+    while(n != NULL && n->symbol != symbol) {
+        n = n->next;
+    }
+    // what if n is null?
+    if (n == NULL) {
+        append(symbol, value);
+    } else {
+        n->value = value;
+    }
 }
 
-void LinkedList::insert(int i, int x)
-{
-	size++;
+void LinkedList::insert(int i, char symbol, int value) {
+    size++;
 
-	if(head == NULL)
-	{
-		head = new Node(x);
-		tail = head;
-	}
-	else if(i == 0)
-	{
-		head = new Node(x, head);
-	}
-	else if(i == size - 1)
-	{
-		tail->next = new Node(x);
-		tail = tail->next;
-	}
-	else
-	{
-		Node *n = head;
-		for(int j = 0; j < i - 1; j++)
-		{
-			n = n->next;
-		}
-		n->next = new Node(x, n->next);
-	}
+    if(head == NULL) {
+        head = new Node(symbol, value);
+        tail = head;
+    }
+    else if(i == 0) {
+        head = new Node(symbol, value, head);
+    }
+    else if(i == size - 1) {
+        tail->next = new Node(symbol, value);
+        tail = tail->next;
+    }
+    else {
+        //COULD WRITE CODE HERE TO APPEND ONE DAY
+        Node *n = head;
+        for(int j = 0; j < i - 1; j++) {
+            n = n->next;
+        }
+        n->next = new Node(symbol, value, n->next);
+    }
 }
 
-void LinkedList::append(int x)
-{
-	insert(length(), x);
+void LinkedList::append(char symbol, int value) {
+    insert(length(), symbol, value);
 }
 
-void LinkedList::remove(int i)
-{
-	size--;
+void LinkedList::remove(char symbol) {
+    size--;
 
-	if(i == 0)
-	{
-		Node *n = head->next;
-		delete head;
-		head = n;
-	}
-	else
-	{
-		Node *n = head;
-		for(int j = 0; j < i - 1; j++)
-		{
-			n = n->next;
-		}
-		Node *next = n->next->next;
-		delete n->next;
-		n->next = next;
-	
-		if(next == NULL)
-		{
-			tail = n;
-		}
-	}
+    int i = 0;
+
+    Node *n = head;
+
+    while(n->symbol != symbol) {
+        n = n->next;
+        i++;
+    }
+
+    if(i == 0) {
+        Node *n = head->next;
+        delete head;
+        head = n;
+    }
+    else {
+        Node *n = head;
+        for(int j = 0; j < i - 1; j++) {
+            n = n->next;
+        }
+        Node *next = n->next->next;
+        delete n->next;
+        n->next = next;
+    
+        if(next == NULL) {
+            tail = n;
+        }
+    }
 }
 
-void LinkedList::clear()
-{
-	Node *n = head;
-	while(n != NULL)
-	{
-		Node *m = n->next;
-		delete n;
-		n = m;
-	}
-	head = NULL;
-	size = 0;
+void LinkedList::clear() {
+    Node *n = head;
+    while(n != NULL) {
+        Node *m = n->next;
+        delete n;
+        n = m;
+    }
+    head = NULL;
+    size = 0;
 }
 
-int LinkedList::length() const
-{
-	return size;
+int LinkedList::length() const {
+    return size;
 }
 
-void LinkedList::print() const
-{
-	Node *n = head;
-	while(n != NULL)
-	{
-		cout << n->value << " ";
-		n = n->next;
-	}
-	cout << "\n";
+void LinkedList::print() const {
+    Node *n = head;
+    while(n != NULL) {
+        cout << n->symbol << ": " << n->value << "\n";
+        n = n->next;
+    }
+    cout << "\n";
 }
