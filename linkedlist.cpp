@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Node::Node(char sym, int val, Node *nxt) {
+Node::Node(char sym, float val, Node *nxt) {
     symbol = sym;
     value = val;
     next = nxt;
@@ -45,7 +45,7 @@ LinkedList::~LinkedList() {
 }
 
 
-const int &LinkedList::get(char symbol) const {
+const float &LinkedList::get(char symbol) const {
     Node *n = head;
 
     while(n != NULL && n->symbol != symbol) {
@@ -53,14 +53,14 @@ const int &LinkedList::get(char symbol) const {
     }
     // what if n is null?
     if (n == NULL) {
-        cout << "no symbol";
+        cout << "Variable " << symbol << " has not been defined yet";
         //probably need to have this do a real error sometime
-        return n->value;
+        exit(0);
     }
     return n->value;
 }
 
-int &LinkedList::get(char symbol) {
+float &LinkedList::get(char symbol) {
     Node *n = head;
 
     while(n != NULL && n->symbol != symbol) {
@@ -68,15 +68,15 @@ int &LinkedList::get(char symbol) {
         }
         // what if n is null?
         if (n == NULL) {
-            cout << "no symbol";
+            cout << "Variable " << symbol << " has not been defined yet";
             //probably need to have this do a real error sometime
-            return n->value;
+            exit(0);
         }
         return n->value;
 }
 
 
-void LinkedList::set(char symbol, int value) {
+void LinkedList::set(char symbol, float value) {
     Node *n = head;
 
     while(n != NULL && n->symbol != symbol) {
@@ -90,7 +90,7 @@ void LinkedList::set(char symbol, int value) {
     }
 }
 
-void LinkedList::insert(int i, char symbol, int value) {
+void LinkedList::insert(int i, char symbol, float value) {
     size++;
 
     if(head == NULL) {
@@ -114,7 +114,7 @@ void LinkedList::insert(int i, char symbol, int value) {
     }
 }
 
-void LinkedList::append(char symbol, int value) {
+void LinkedList::append(char symbol, float value) {
     insert(length(), symbol, value);
 }
 

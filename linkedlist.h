@@ -5,9 +5,9 @@
 #include "list.h"
 
 struct Node {
-    Node(char sym, int val, Node *nxt = NULL);
+    Node(char sym, float val, Node *nxt = NULL);
     char symbol;
-    int value;
+    float value;
     Node *next;
 };
 
@@ -17,12 +17,12 @@ class LinkedList: public List {
         LinkedList(const LinkedList &other);
         virtual ~LinkedList();
 
-        virtual const int &get(char symbol) const;
-        virtual int &get(char symbol);
-        virtual void set(char symbol, int value);
+        virtual const float &get(char symbol) const;
+        virtual float &get(char symbol);
+        virtual void set(char symbol, float value);
 
-        virtual void insert(int i, char symbol, int value);
-        virtual void append(char symbol, int value);
+        virtual void insert(int i, char symbol, float value);
+        virtual void append(char symbol, float value);
         virtual void remove(char symbol);
         virtual void clear();
 
