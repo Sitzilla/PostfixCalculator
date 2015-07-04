@@ -33,6 +33,15 @@ int Stack::size() const
 	return elements.size();
 }
 
+void Stack::clear()
+{
+	int counter = size();
+	for(int i = 0; i < counter; i++)
+	{
+		pop();
+	}
+}
+
 void Stack::print() const
 {
 	// print backwards so it looks like the stack actually looks

@@ -18,6 +18,7 @@ class Stack
 		float top() const;
 		int size() const;
 		void print() const;
+        void clear();
 	private:
 		vector<float> elements;
 };
