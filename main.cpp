@@ -63,9 +63,8 @@ int main() {
     string quitCommand = "quit";
     
     LinkedList mainList;
-    // MathUtils mathutils;
 
-    cout << "Welcome to the PostFix calc!" << endl;
+    cout << "Welcome to the PostFix calculator!" << endl;
     while (true) {
 
         while (true) {
