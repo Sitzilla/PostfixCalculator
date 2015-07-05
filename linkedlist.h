@@ -17,8 +17,8 @@ class LinkedList: public List {
         LinkedList(const LinkedList &other);
         virtual ~LinkedList();
 
-        virtual const float &get(char symbol) const;
-        virtual float &get(char symbol);
+        virtual const float get(char symbol, bool &legalSymbol) const;
+        virtual float get(char symbol, bool &legalSymbol);
         virtual void set(char symbol, float value);
 
         virtual void insert(int i, char symbol, float value);

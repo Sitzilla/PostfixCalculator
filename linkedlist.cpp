@@ -45,32 +45,28 @@ LinkedList::~LinkedList() {
 }
 
 
-const float &LinkedList::get(char symbol) const {
+const float LinkedList::get(char symbol, bool &legalSymbol) const {
     Node *n = head;
 
     while(n != NULL && n->symbol != symbol) {
         n = n->next;
     }
-    // what if n is null?
     if (n == NULL) {
-        cout << "Variable " << symbol << " has not been defined yet";
-        //probably need to have this do a real error sometime
-        exit(0);
+        legalSymbol = false;
+        return 0;
     }
     return n->value;
 }
 
-float &LinkedList::get(char symbol) {
+float LinkedList::get(char symbol, bool &legalSymbol) {
     Node *n = head;
 
     while(n != NULL && n->symbol != symbol) {
             n = n->next;
         }
-        // what if n is null?
         if (n == NULL) {
-            cout << "Variable " << symbol << " has not been defined yet";
-            //probably need to have this do a real error sometime
-            exit(0);
+            legalSymbol = false;
+            return 0;
         }
         return n->value;
 }

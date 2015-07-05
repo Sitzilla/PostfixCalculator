@@ -34,7 +34,14 @@ void calculatePostfixExpression(string input, Tokenizer tokenizer, string token,
             numberStack.push(answer);
 
         } else if (MathUtils::isLetter(token)) {
-            numberStack.push(mainList.get(token[0]));
+            bool legalSymbol = true;
+            float answer = mainList.get(token[0], legalSymbol);
+            numberStack.push(answer);
+            if (!legalSymbol) {
+                cout << "Variable " << token << " has not been defined yet" << endl;;
+                numberStack.clear();
+                return;
+            }
         }
     }
 }
