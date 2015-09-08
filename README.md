@@ -1,6 +1,6 @@
 # PostfixCalculator
-
-Homework assignment 3 : http://csce.uark.edu/~lbg002/csce2014/homework/homework-3-postfix-calculator/
+Homework assignment from Programming Foundations II. Problem statement found at:
+http://csce.uark.edu/~lbg002/csce2014/homework/homework-3-postfix-calculator/
 
 Problem statement for assignment:
 
